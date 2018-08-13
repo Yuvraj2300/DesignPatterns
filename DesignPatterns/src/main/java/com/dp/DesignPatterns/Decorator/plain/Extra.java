@@ -1,6 +1,6 @@
 package com.dp.DesignPatterns.Decorator.plain;
 
-public abstract class Extra {
+public abstract class Extra implements	Order{
 	protected Order order;
 	protected String label;
 	protected double price;
