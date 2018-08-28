@@ -6,18 +6,26 @@ import javax.ejb.TransactionAttributeType;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import com.dp.DesignPatterns.observer.ee.MessageEvent.Type;
+
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class EventService {
 
 	@Inject
-	private	String	message;
-	
+	private String message = "produced Message";
+
 	@Inject
-	Event<String>	event;
+	@MessageEvent(Type.SERVICE)
+	Event<String> serviceEvent;
+
+	@Inject
+	@MessageEvent(Type.PARAMETER)
+	Event<String>	parameterEvent;
 	
-	public	void	startService() {
-		event.fire("Starting Service: "+message);
+	public void startService() {
+		serviceEvent.fire("Starting Service: " + message);
+		parameterEvent.fire("-d -p");
 	}
-	
+
 }
